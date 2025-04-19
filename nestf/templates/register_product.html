@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Property</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/heroicons@2.0.18/outline"></script>
+    <link rel="icon" type="image/x-icon" href="{% static 'img/NestFinder icon.png' %}" />
+    <style>
+        /* Custom Violet Theme */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .violet-gradient {
+            background: linear-gradient(135deg, #8B5CF6, #6D28D9);
+        }
+        .violet-bg-light {
+            background-color: #F5F3FF; /* Light violet background */
+        }
+        .violet-border {
+            border-color: #C4B5FD; /* Soft violet border */
+        }
+        .violet-text {
+            color: #6D28D9;
+        }
+        .violet-btn {
+            background: linear-gradient(to right, #8B5CF6, #6D28D9);
+            color: white;
+        }
+        .violet-btn:hover {
+            background: linear-gradient(to right, #7C3AED, #5B21B6);
+        }
+        .violet-focus:ring {
+            --tw-ring-color: #8B5CF6;
+        }
+        .violet-hover:bg {
+            transition: background-color 0.2s ease-in-out;
+        }
+        .violet-hover:bg:hover {
+            background-color: #EDE9FE;
+        }
+        .form-section-header {
+            border-bottom: 2px solid #C4B5FD;
+        }
+        /* Ensure buttons and inputs have rounded corners */
+        input, select, textarea, button {
+            border-radius: 0.5rem;
+        }
+        /* Checkbox styling */
+        .checkbox-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .checkbox-label input[type="checkbox"] {
+            accent-color: #8B5CF6; /* Violet color for checked state */
+            margin-right: 0.5rem;
+        }
+        /* Thumbnail styling */
+        .thumbnail {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border-radius: 0.25rem;
+            border: 1px solid #C4B5FD;
+        }
+        /* Remove button styling */
+        .remove-btn {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 20px;
+            height: 20px;
+            background-color: #EF4444; /* Red for visibility */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+        .remove-btn:hover {
+            background-color: #DC2626; /* Darker red on hover */
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-violet-50 to-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header Section -->
+        <div class="mb-10 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 violet-text mb-2">Register Your Property</h1>
+            <p class="text-gray-600 max-w-2xl mx-auto">Complete the form below to list your property on our platform</p>
+        </div>
+        
+        <!-- Main Form -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden violet-border">
+            <div class="p-6 sm:p-10 violet-bg-light">
+                <form method="POST" enctype="multipart/form-data" class="space-y-8">
+                    {% csrf_token %}
+                    
+                    <!-- Basic Information Section -->
+                    <div>
+                        <h2 class="text-xl font-semibold violet-text mb-6 pb-2 form-section-header">Basic Information</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Property Type</label>
+                                <select name="product" class="w-full px-4 py-2 bg-white border violet-border rounded-lg focus:ring-2 violet-focus:ring focus:border-violet-500 transition-all">
+                                    <option value="" disabled selected>Select property type</option>
+                                    <option value="hostels">Hostels</option>
+                                    <option value="rooms">Rooms</option>
+                                    <option value="pg">PG</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                                <input type="text" name="name" required placeholder="e.g. Sunshine PG" class="w-full px-4 py-2 bg-white border violet-border rounded-lg focus:ring-2 violet-focus:ring focus:border-violet-500 transition-all">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Price (monthly)</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                        <span class="violet-text">₹</span>
+                                    </div>
+                                    <input type="number" step="0.01" name="price" required placeholder="0.00" min="0" class="w-full pl-8 pr-4 py-2 bg-white border violet-border rounded-lg focus:ring-2 violet-focus:ring focus:border-violet-500 transition-all">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Price (weekly)</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                        <span class="violet-text">₹</span>
+                                    </div>
+                                    <input type="number" step="0.01" name="weekly_price" placeholder="0.00" min="0" class="w-full pl-8 pr-4 py-2 bg-white border violet-border rounded-lg focus:ring-2 violet-focus:ring focus:border-violet-500 transition-all">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Price (daily)</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                        <span class="violet-text">₹</span>
+                                    </div>
+                                    <input type="number" step="0.01" name="daily_price" placeholder="0.00" min="0" class="w-full pl-8 pr-4 py-2 bg-white border violet-border rounded-lg focus:ring-2 violet-focus:ring focus:border-violet-500 transition-all">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Availability</label>
+                                <select name="availability" class="w-full px-4 py-2 bg-white border violet-border rounded-lg focus:ring-2 violet-focus:ring focus:border-violet-500 transition-all">
+                                    <option value="1">Available</option>
+                                    <option value="0">Not Available</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Location Details Section -->
+                    <div>
+                        <h2 class="text-xl font-semibold violet-text mb-6 pb-2 form-section-header">Location Details</h2>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                            <input type="text" name="location" required placeholder="Full address" class="w-full px-4 py-2 bg-white border violet-border rounded-lg focus:ring-2 violet-focus:ring focus:border-violet-500 transition-all">
+                        </div>
+                    </div>
+                    
+                    <!-- Property Description Section -->
+                    <div>
+                        <h2 class="text-xl font-semibold violet-text mb-6 pb-2 form-section-header">Property Description</h2>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                            <textarea name="description" required placeholder="Describe your property, amenities, rules, etc." class="w-full px-4 py-2 bg-white border violet-border rounded-lg focus:ring-2 violet-focus:ring focus:border-violet-500 transition-all h-32"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Property Features Section -->
+                    <div>
+                        <h2 class="text-xl font-semibold violet-text mb-6 pb-2 form-section-header">Property Features</h2>
+                        <div class="checkbox-container">
+                            {% for feature in features %}
+                                <label class="checkbox-label text-sm text-gray-700">
+                                    <input type="checkbox" name="features" value="{{ feature.name }}" id="feature_{{ feature.id }}">
+                                    {{ feature.name }}
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+    <!-- Contact Information Section -->
+            <div>
+                <h2 class="text-xl font-semibold violet-text mb-6 pb-2 form-section-header">Contact Information</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                        <input type="text" name="phone_number" placeholder="e.g. +1234567890" class="w-full px-4 py-2 bg-white border violet-border rounded-lg focus:ring-2 violet-focus:ring focus:border-violet-500 transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">WhatsApp Number</label>
+                        <input type="text" name="whatsapp_number" placeholder="e.g. +1234567890" class="w-full px-4 py-2 bg-white border violet-border rounded-lg focus:ring-2 violet-focus:ring focus:border-violet-500 transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" name="email" placeholder="e.g. example@domain.com" class="w-full px-4 py-2 bg-white border violet-border rounded-lg focus:ring-2 violet-focus:ring focus:border-violet-500 transition-all">
+                    </div>
+                </div>
+            </div>
+                    
+                    <!-- Nearest Places Section -->
+                    <div>
+                        <div class="flex justify-between items-center mb-6 pb-2 form-section-header">
+                            <h2 class="text-xl font-semibold violet-text">Nearest Places</h2>
+                            <button type="button" onclick="addPlace()" class="inline-flex items-center px-4 py-2 violet-btn rounded-lg hover:bg-violet-700 focus:outline-none focus:ring-2 violet-focus:ring focus:ring-offset-2 transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                                </svg>
+                                Add Place
+                            </button>
+                        </div>
+                        <div id="nearest-places-container" class="space-y-4"></div>
+                        <input type="hidden" id="nearest_places_count" name="nearest_places_count" value="0">
+                    </div>
+                    
+                    <!-- Upload Images Section -->
+                    <div>
+                        <h2 class="text-xl font-semibold violet-text mb-6 pb-2 form-section-header">Property Images</h2>
+                        <div class="mt-2">
+                            <div class="flex flex-col items-center px-6 pt-5 pb-6 border-2 violet-border border-dashed rounded-lg violet-hover:bg">
+                                <div class="space-y-1 text-center">
+                                    <svg class="mx-auto h-12 w-12 violet-text" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                    <div class="flex text-sm text-gray-600">
+                                        <label for="images" class="relative cursor-pointer bg-white rounded-md font-medium violet-text hover:text-violet-700 focus-within:outline-none focus-within:ring-2 violet-focus:ring focus-within:ring-offset-2">
+                                            <span>Upload images</span>
+                                            <input id="images" name="images" type="file" multiple accept="image/*" class="sr-only">
+                                        </label>
+                                        <p class="pl-1">or drag and drop</p>
+                                    </div>
+                                    <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                                </div>
+                                <!-- Thumbnail preview container -->
+                                <div id="image-preview" class="mt-4 flex flex-wrap gap-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <div class="pt-5">
+                        <div class="flex justify-end">
+                            <button type="button" class="mr-3 px-4 py-2 border violet-border rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 violet-focus:ring transition-all">Cancel</button>
+                            <button type="submit" class="px-6 py-3 violet-btn font-medium rounded-lg shadow-sm hover:bg-violet-700 focus:outline-none focus:ring-2 violet-focus:ring focus:ring-offset-2 transition-all">Register Property</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="mt-8 text-center text-gray-500 text-sm">
+            <p>© 2025 Property Listing Platform. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        let placeCount = 0;
+
+        function addPlace() {
+            const container = document.getElementById('nearest-places-container');
+            const newPlace = document.createElement('div');
+            
+            newPlace.className = 'bg-white rounded-lg p-4 violet-border violet-hover:bg';
+            newPlace.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Place Type</label>
+                        <select name="place_${placeCount}_place_type" class="w-full px-3 py-2 bg-white border violet-border rounded-md focus:ring-2 violet-focus:ring focus:border-violet-500 transition-all">
+                            <option value="hospital">Hospital</option>
+                            <option value="supermarket">Supermarket</option>
+                            <option value="bus_stop">Bus Stop</option>
+                            <option value="restaurant">Restaurant</option>
+                            <option value="park">Park</option>
+                            <option value="famous_spots">Famous Spots</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                        <input type="text" name="place_${placeCount}_name" placeholder="e.g. City Hospital" class="w-full px-3 py-2 bg-white border violet-border rounded-md focus:ring-2 violet-focus:ring focus:border-violet-500 transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Distance (km)</label>
+                        <input type="number" step="0.1" name="place_${placeCount}_distance" placeholder="e.g. 1.5" min="0" class="w-full px-3 py-2 bg-white border violet-border rounded-md focus:ring-2 violet-focus:ring focus:border-violet-500 transition-all">
+                    </div>
+                </div>
+                <button type="button" onclick="this.parentElement.remove(); updatePlaceCount();" class="mt-2 inline-flex items-center px-2 py-1 text-sm text-red-600 hover:text-red-800 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                    </svg>
+                    Remove
+                </button>
+            `;
+            
+            container.appendChild(newPlace);
+            placeCount++;
+            document.getElementById('nearest_places_count').value = placeCount;
+        }
+        
+        function updatePlaceCount() {
+            const container = document.getElementById('nearest-places-container');
+            placeCount = container.children.length;
+            document.getElementById('nearest_places_count').value = placeCount;
+        }
+
+        // Display selected image thumbnails with remove buttons
+        const fileInput = document.getElementById('images');
+        let selectedFiles = [];
+
+        fileInput.addEventListener('change', function(event) {
+            const files = Array.from(event.target.files);
+            selectedFiles = files; // Update selected files
+            updateImagePreview();
+        });
+
+        function updateImagePreview() {
+            const preview = document.getElementById('image-preview');
+            preview.innerHTML = ''; // Clear previous thumbnails
+
+            if (selectedFiles.length > 0) {
+                selectedFiles.forEach((file, index) => {
+                    const container = document.createElement('div');
+                    container.className = 'relative';
+
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(file);
+                    img.className = 'thumbnail';
+                    img.alt = file.name;
+
+                    const removeBtn = document.createElement('button');
+                    removeBtn.innerHTML = '-';
+                    removeBtn.className = 'remove-btn';
+                    removeBtn.onclick = () => {
+                        selectedFiles.splice(index, 1); // Remove file from array
+                        updateFileInput();
+                        updateImagePreview();
+                    };
+
+                    container.appendChild(img);
+                    container.appendChild(removeBtn);
+                    preview.appendChild(container);
+                });
+            }
+        }
+
+        function updateFileInput() {
+            const dataTransfer = new DataTransfer();
+            selectedFiles.forEach(file => dataTransfer.items.add(file));
+            fileInput.files = dataTransfer.files;
+        }
+    </script>
+</body>
+</html>

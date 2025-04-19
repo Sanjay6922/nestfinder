@@ -1,0 +1,49 @@
+{% extends 'admin_home.html' %}
+{% block content %}
+    <div class="ml-64 p-8 space-y-6">
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-4xl font-bold text-[#e94146] text-center font-poppins tracking-widest shadow-lg">Users List</h1>
+        </div>
+
+        <div class="overflow-x-auto bg-white p-6 rounded-lg shadow-lg">
+            <h3 class="text-2xl font-semibold text-[#e94146] mb-4">Registered Users</h3>
+            <table class="min-w-full table-auto text-center">
+                <thead>
+                    <tr class="bg-[#f8a5c2] text-white">
+                        <th class="py-2 px-4 border">S.No</th>
+                        <th class="py-2 px-4 border">Name</th>
+                        <th class="py-2 px-4 border">Email</th>
+                        <th class="py-2 px-4 border">Phone Number</th>
+                        <th class="py-2 px-4 border">Age</th>
+                        <th class="py-2 px-4 border">Place</th>
+                        <th class="py-2 px-4 border">Gender</th>
+                        <th class="py-2 px-4 border">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr class="hover:bg-[#f4f4f9] transition-colors">
+                        <td class="py-2 px-4 border">{{ forloop.counter }}</td>
+                        <td class="py-2 px-4 border">{{ user.name }}</td>
+                        <td class="py-2 px-4 border">{{ user.email }}</td>
+                        <td class="py-2 px-4 border">{{ user.phone_No }}</td>
+                        <td class="py-2 px-4 border">{{ user.age }}</td>
+                        <td class="py-2 px-4 border">{{ user.place }}</td>
+                        <td class="py-2 px-4 border">{{ user.get_gender_display }}</td>
+                        <td class="py-2 px-4 border">
+                            <form action="{% url 'delete_user' user.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="bg-red-500 text-white py-1 px-3 rounded-lg hover:bg-red-700 transition-colors">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="8" class="py-2 px-4 text-center">No users found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

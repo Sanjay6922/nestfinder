@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{% static 'img/NestFinder icon.png' %}" />
+
+   <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #f8a5c2, #9d41e9);
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center min-h-screen p-6">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+        <h2 class="text-3xl font-semibold text-[#e94146] text-center mb-6">Verify OTP</h2>
+        
+        <form action="{% url 'verify_otp' user_id %}" method="POST">
+            {% csrf_token %}
+            
+            <div class="mb-4">
+                <label class="block font-semibold">Enter OTP</label>
+                <input type="text" name="otp" required class="w-full p-2 border rounded">
+            </div>
+            
+            <button type="submit" class="bg-[#e94146] text-white px-5 py-2 rounded-lg hover:bg-red-600 transition w-full">
+                Verify
+            </button>
+        </form>
+    </div>
+</body>
+</html>

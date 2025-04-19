@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'img/NestFinder icon.png' %}" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-violet-100 via-white to-violet-200 min-h-screen flex items-center justify-center px-4">
+    <div class="bg-white rounded-2xl shadow-2xl p-10 w-full max-w-md border border-violet-100 transform transition-all hover:shadow-3xl">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-violet-900 tracking-tight">Verify OTP</h2>
+            <p class="text-violet-600 text-sm mt-2 opacity-80">Enter the OTP sent to your registered email</p>
+        </div>
+        
+        <form method="POST" class="space-y-6">
+            {% csrf_token %}
+            
+            <div class="space-y-3">
+                <label for="otp" class="block text-sm font-medium text-violet-800">OTP Code</label>
+                <input type="text" name="otp" 
+                    class="w-full px-4 py-3 rounded-lg border border-violet-300 bg-violet-50 text-violet-900 placeholder-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all duration-300 shadow-sm hover:shadow-md"
+                    placeholder="Enter OTP"
+                    required>
+            </div>
+            
+            <div>
+                <button type="submit" 
+                    class="w-full bg-gradient-to-r from-violet-600 to-violet-800 text-white font-semibold py-3 px-4 rounded-lg hover:from-violet-700 hover:to-violet-900 focus:outline-none focus:ring-2 focus:ring-violet-600 focus:ring-offset-2 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1">
+                    Verify OTP
+                </button>
+            </div>
+        </form>
+        
+        {% if messages %}
+            <div class="mt-6">
+                <ul class="bg-violet-50 border border-violet-200 rounded-lg p-4 shadow-sm">
+                    {% for message in messages %}
+                        <li class="text-violet-800 text-sm font-medium">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        
+        <div class="mt-6 text-center">
+            <a href="{% url 'login' %}" class="text-sm font-medium text-violet-600 hover:text-violet-800 transition-all duration-300 hover:underline">Return to Login</a>
+        </div>
+    </div>
+</body>
+</html>

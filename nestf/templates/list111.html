@@ -1,0 +1,29 @@
+{% extends 'admin_home.html' %}
+{% block content %}
+    <!-- Main Content -->
+    <div class="container mx-auto p-6 w-full md:w-3/4 lg:w-1/2 ml-auto">
+        <h1 class="text-3xl font-bold text-gray-800 text-center mb-6">Product List</h1>
+
+        <div class="bg-white shadow-lg rounded-lg p-6">
+            <ul>
+                {% for product in p %}
+                    <li class="flex justify-between items-center bg-gray-50 p-4 rounded-lg shadow-md mb-4">
+                        <span class="text-lg font-semibold text-gray-700">
+                            {{ product.name }} - ₹{{ product.price }}
+                        </span>
+                        <form method="POST" class="ml-4">
+                            {% csrf_token %}
+                            <input type="hidden" name="product_id" value="{{ product.id }}">
+                            <button type="submit"
+                                    onclick="return confirm('Are you sure you want to delete this product?');"
+                                    class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-all duration-300">
+                                Delete
+                            </button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+

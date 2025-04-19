@@ -1,0 +1,53 @@
+
+   {% extends 'admin_home.html' %} 
+   {% block content %}
+    <!-- Main Content -->
+    <div class="ml-64 p-8 space-y-6">
+        <h1 class="text-4xl font-bold text-[#e94146] text-center font-poppins tracking-widest shadow-lg">User Messages</h1>
+        
+        <!-- Messages Table -->
+        <div class="bg-white p-6 rounded-lg shadow-lg overflow-x-auto">
+            <table class="min-w-full border-collapse border border-gray-300 text-center">
+                <thead>
+                    <tr class="bg-[#f8a5c2] text-white">
+                        <th class="py-2 px-4 border">S.No</th>
+                        <th class="py-2 px-4 border">Name</th>
+                        <th class="py-2 px-4 border">Email</th>
+                        <th class="py-2 px-4 border">Subject</th>
+                        <th class="py-2 px-4 border">Message</th>
+                        <th class="py-2 px-4 border">Date</th>
+                        <th class="py-2 px-4 border">Action</th>
+                        <th class="py-2 px-4 border">Reply</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for m in msg %}
+                    <tr class="hover:bg-[#f4f4f9] transition-colors">
+                        <td class="py-2 px-4 border">{{ forloop.counter }}</td>
+                        <td class="py-2 px-4 border">{{ m.name }}</td>
+                        <td class="py-2 px-4 border">{{ m.user.email }}</td>
+                        <td class="py-2 px-4 border">{{ m.subject }}</td>
+                        <td class="py-2 px-4 border">{{ m.message }}</td>
+                        <td class="py-2 px-4 border">{{ m.created_at|date:"d M Y" }}</td>
+                        <td class="py-2 px-4 border">
+                            <form action="#" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-700 transition">Delete</button>
+                            </form>
+                        </td>
+                        <td class="py-2 px-4 border">
+                            <a href="{% url 'reply' m.id %}" class="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-700 transition">Reply</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="8" class="py-4 text-center text-gray-500">No messages found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endblock %}
+
+

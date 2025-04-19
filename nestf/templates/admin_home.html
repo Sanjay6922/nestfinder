@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{% static 'img/NestFinder icon.png' %}" />
+
+   <style>
+        /* General Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            perspective: 1500px; /* Adds depth for 3D effects */
+        }
+
+        /* 3D Sidebar */
+        .sidebar {
+            box-shadow: 10px 0 20px rgba(0, 0, 0, 0.3);
+            transform: translateZ(50px);
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* 3D Effect on Cards */
+        .card-3d {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+            transform: rotateY(0deg) rotateX(0deg);
+        }
+
+        .card-3d:hover {
+            transform: rotateY(10deg) rotateX(10deg);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 3D Button Click Effect */
+        .btn-3d {
+            transition: all 0.2s ease-in-out;
+            transform: translateY(0);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-3d:active {
+            transform: translateY(3px);
+            box-shadow: none;
+        }
+
+        /* Dark Mode */
+        .dark-mode {
+            background-color: #1a202c;
+            color: rgb(248, 243, 243);
+        }
+
+        .dark-mode .bg-white {
+            background-color: #2d3748 !important;
+        }
+
+        .dark-mode .text-gray-700 {
+            color: #a0aec0 !important;
+        }
+    </style>
+</head>
+<body class="bg-gradient font-sans">
+
+    <!-- Sidebar -->
+    <div class="sidebar w-64 h-screen bg-[#e94146] text-white p-6 space-y-6 fixed left-0 top-0 shadow-lg">
+        <h2 class="text-3xl font-semibold text-center">Admin</h2>
+
+        <!-- Live Clock -->
+        <div id="clock" class="text-center text-lg font-semibold mt-4"></div>
+
+        <ul class="space-y-4 mt-8">
+            <li><a href="/admin_home/" class="hover:bg-white hover:text-[#e94146] py-2 px-4 rounded-lg transition-colors">Dashboard</a></li>
+            <li><a href="/list_users/" class="hover:bg-white hover:text-[#e94146] py-2 px-4 rounded-lg transition-colors">Users</a></li>
+            <li><a href="/view_messages/" class="hover:bg-white hover:text-[#e94146] py-2 px-4 rounded-lg transition-colors">Messages</a></li>
+            <li><a href="/list111/" class="hover:bg-white hover:text-[#e94146] py-2 px-4 rounded-lg transition-colors">List</a></li>
+            <li><a href="/review/" class="hover:bg-white hover:text-[#e94146] py-2 px-4 rounded-lg transition-colors">Reviews</a></li>
+            <li><a href="/" class="hover:bg-white hover:text-[#e94146] py-2 px-4 rounded-lg transition-colors">Logout</a></li>
+
+
+        </ul>
+
+        <!-- Dark Mode Toggle -->
+        <button id="darkModeToggle" class="w-full py-2 px-4 bg-gray-200 text-gray-800 rounded-lg mt-6 hover:bg-gray-300 transition btn-3d">
+             Dark Mode 🌙
+        </button>
+    </div>
+
+    <!-- Main Content -->
+     {% block content %}
+    <div class="ml-64 p-8 space-y-6">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-4xl font-bold text-[#e94146] text-center font-poppins tracking-widest shadow-lg">
+                Welcome Admin
+            </h1>
+        </div>
+
+        <!-- Cards Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow-lg card-3d">
+                <h3 class="text-xl font-semibold text-[#e94146]">Total Users</h3>
+                <p class="text-4xl font-bold">{{ user }}</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-lg card-3d">
+                <h3 class="text-xl font-semibold text-[#e94146]">Properties</h3>
+                <p class="text-4xl font-bold">{{ mod }}</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-lg card-3d">
+                <h3 class="text-xl font-semibold text-[#e94146]">Total Reviews</h3>
+                <p class="text-4xl font-bold">{{ reviews }}</p>
+            </div>
+        </div>
+
+     
+    </div>
+    {% endblock %}
+    <!-- JavaScript for Live Clock and Dark Mode -->
+    <script>
+        // Update the clock every second
+        function updateClock() {
+            document.getElementById('clock').innerText = new Date().toLocaleTimeString();
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Dark mode toggle
+        const toggleBtn = document.getElementById('darkModeToggle');
+        toggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+        });
+    </script>
+</body>
+</html>

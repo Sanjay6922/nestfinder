@@ -1,0 +1,513 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User Home</title>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+ 
+  <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/linearicons.css' %}">
+  <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+  <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bootsnav.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+  <link rel="icon" type="image/x-icon" href="{% static 'img/NestFinder icon.png' %}" />
+  
+  <style>
+    .welcome-hero:before { background: url("{% static 'img/new.jpg' %}"); }
+    .navbar-header a.navbar-brand, .navbar-header a.navbar-brand:hover, .navbar-header a.navbar-brand:focus {
+      display: inline-block; float: none !important; margin: 0 !important; font-family: "Dancing Script", serif; font-size: 55px; font-weight: 400; font-style: normal;
+    }
+    .log1 { margin-top: 29px; padding: 5px 6px; color: #f8f3f3; background-color: #8B5CF6; font-size: 13px; border: 1px solid #7C3AED; border-radius: 20px; }
+    .log1:hover { color: #fff; background: #7C3AED; }
+    .section-header h2 { font-size: 30px; margin-bottom: 10px; }
+    .section-header p { font-size: 16px; color: #777; }
+    .welcome-hero-btn { border: none; font-size: 16px; font-weight: 500; height: 65px; width: 150px; }
+    .welcome-hero-btn:hover { background-color: #7C3AED; }
+    .relative.w-full.max-w-lg.mx-auto.mt-8 { margin-left: 220px; margin-top: 80px; margin-right: auto; }
+    .welcome-hero .container { padding: 20px; display: flex; flex-direction: column; align-items: flex-start; }
+    .welcome-hero-txt { width: 100%; text-align: center; }
+    .relative.w-full.max-w-lg input::placeholder { font-size: 18px; color: #999; }
+    .relative.w-full.max-w-lg input { font-size: 18px; }
+    @media (max-width: 768px) { .relative.w-full.max-w-lg { padding: 0 15px; } .welcome-hero-txt h2 { font-size: 28px; } .welcome-hero-txt p { font-size: 18px; } }
+    .single-list-topics-icon { margin-bottom: 15px; transition: transform 0.3s ease; }
+    .single-list-topics-content:hover .single-list-topics-icon { transform: scale(1.1); }
+    .single-list-topics-content { padding: 40px 20px; border-radius: 10px; transition: all 0.3s ease; }
+    .single-list-topics-content:hover { background-color: #faf8f8; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); }
+    li { cursor: pointer; transition: transform 0.2s ease; }
+    li:hover { transform: scale(1.05); }
+    #list-topics { position: relative; z-index: 10; margin-top: -30px; }
+    .single-list-topics-content h2 a { color: #333; font-weight: 600; text-decoration: none; transition: color 0.3s ease; }
+    .single-list-topics-content:hover h2 a { color: #8B5CF6; }
+    .search-container { position: relative; width: 100%; max-width: 1000px; margin: 200px auto 0 60px; }
+    .search-wrapper { display: flex; align-items: center; }
+    .search-icon { position: absolute; left: 15px; top: 25%; transform: translateY(-50%); color: #777; font-size: large; }
+    .search-input { width: 1000px; height: 65px; padding: 15px 15px 15px 50px; font-size: 18px; color: #333; background-color: #fff; border: 1px solid #ccc; border-radius: 10px; outline: none; }
+    .search-input::placeholder { font-size: 18px; color: #999; }
+    .search-button { height: 65px; width: 150px; border: none; font-size: 16px; margin-top: 25px; margin-left: 450px; font-weight: 500; color: white; background-color: #8B5CF6; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s ease; }
+    .search-button:hover { background-color: #7C3AED; }
+    .search-button i { margin-left: 8px; }
+    .logout-button { position: absolute; top: 20px; right: -110px; padding: 10px 20px; font-size: 16px; font-weight: bold; color: white; background-color: #8B5CF6; border: none; border-radius: 30px; text-decoration: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); transition: background-color 0.3s ease, box-shadow 0.3s ease; }
+    .logout-button:hover { background-color: #7C3AED; box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); }
+    .logout-button:hover, .logout-button:focus, .logout-button:active { transform: none !important; padding: 10px 20px !important; font-size: 16px !important; }
+    .review-button { position: relative; padding: 10px 20px; font-size: 16px; font-weight: bold; color: white; background-color: #8B5CF6; border: none; border-radius: 30px; text-decoration: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); transition: background-color 0.3s ease, box-shadow 0.3s ease; }
+    .review-button:hover { background-color: #7C3AED; box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); }
+    .review-button:hover, .review-button:focus, .review-button:active { transform: none !important; padding: 10px 20px !important; font-size: 16px !important; }
+    #refer-friend a#whatsapp-share { display: inline-block; padding: 12px 24px; font-size: 16px; font-weight: 600; color: #fff; background: linear-gradient(to right, #8B5CF6, #A78BFA, #7C3AED); border-radius: 8px; text-decoration: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); transition: all 0.3s ease-in-out; }
+    #refer-friend a#whatsapp-share:hover { background: linear-gradient(to right, #7C3AED, #9F7AEA, #6D28D9); transform: scale(1.05); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); }
+    #refer-friend a#whatsapp-share:active { transform: scale(0.95); }
+    /* Updated Enter Button Styles */
+    .enter-button { display: inline-block; padding: 12px 44px; margin-right: 150px; font-size: 26px; font-weight: 600; color: #fff; background: linear-gradient(to right, #8B5CF6, #A78BFA, #7C3AED); border-radius: 8px; text-decoration: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); transition: all 0.3s ease-in-out; }
+    .enter-button:hover { background: linear-gradient(to right, #7C3AED, #9F7AEA, #6D28D9); transform: scale(1.05); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); }
+    .enter-button:active { transform: scale(0.95); }
+    /* Updated Review Section Styles with Custom Animation */
+    .reviews { padding: 12px 34px; background: #f8f9fa;  }
+    .reviews .section-header h2 {
+      font-size: 36px;
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 10px;
+    }
+    .reviews .section-header p {
+      font-size: 18px;
+      color: #718096;
+      margin-bottom: 20px;
+    }
+    .testimonial-carousel {
+      overflow: hidden;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .testimonial-inner {
+      margin-top: 60px;
+      display: flex;
+      animation: scroll 20s linear infinite;
+      white-space: nowrap;
+    }
+    .single-testimonial-box {
+      background: #ffffff;
+      padding: 25px;
+      width: 300px;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      flex-shrink: 0;
+      display: inline-block;
+      margin-right: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .single-testimonial-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    .testimonial-img img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 15px;
+      border: 3px solid #8B5CF6; /* Updated to violet */
+    }
+    .testimonial-person h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #2d3748;
+      margin: 0 0 5px;
+    }
+    .testimonial-person h4 {
+      font-size: 14px;
+      font-weight: 400;
+      color: #718096;
+      margin: 0 0 10px;
+    }
+    .testimonial-person-star i {
+      color: #f6ad55;
+      font-size: 16px;
+    }
+    .testimonial-comment p {
+      font-size: 15px;
+      font-style: italic;
+      color: #4a5568;
+      margin: 15px 0 0;
+      line-height: 1.6;
+    }
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(-300px * {{ reviews.count }} - 20px * {{ reviews.count|add:"-1" }})); }
+    }
+    .testimonial-carousel:hover .testimonial-inner {
+      animation-play-state: paused;
+    }
+    @media (max-width: 768px) {
+      .single-testimonial-box {
+        width: 250px;
+      }
+      @keyframes scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(calc(-250px * {{ reviews.count }} - 20px * {{ reviews.count|add:"-1" }})); }
+      }
+    }
+    /* Updated How It Works Hover Effect */
+    .single-how-works {
+      transition: background-color 0.3s ease; /* Smooth transition */
+    }
+    .single-how-works:hover {
+      background-color: #5b239b; /* Light violet instead of red */
+      transform: translateY(-5px); /* Retain lift effect */
+      box-shadow: 0 5px 15px rgba(139, 92, 246, 0.2); /* Violet shadow */
+    }
+    .single-how-works-icon i {
+      color: #8B5CF6; /* Optional: Violet icon color */
+    }
+    .single-how-works h2 a {
+      color: #333;
+      text-decoration: none;
+    }
+    .single-how-works:hover h2 a {
+      color: #7C3AED; /* Violet text on hover */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header Top -->
+  <header id="header-top" class="header-top">
+    <ul>
+      <li class="head-responsive-right pull-right">
+        <div class="header-top-right">
+          <ul>
+            <li class="header-top-contact">+1 222 777 6565</li>
+            <li class="header-top-contact"></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </header>
+
+  <!-- Navigation -->
+  <section class="top-area">
+    <div class="header-area">
+        <nav class="navbar navbar-default bootsnav navbar-sticky navbar-scrollspy" data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000" style="height: 100px;">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href="index.html">
+                        <img src="{% static 'img/logo2.png' %}" class="w-2 h-2 md:w-2 md:h-4 object-contain" alt="NestFinder Logo" style="width: 150px;">
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+                        <li class="scroll active"><a href="#home">home</a></li>
+                        <li class="scroll"><a href="#works">how it works</a></li>
+                        <li class="nav-link"><a href="/user_messages/">Messages</a></li>
+                        <li class="scroll"><a href="#reviews">review</a></li>
+                        <li class="nav-link"><a href="/message/">contact</a></li>
+                        <li class="nav-link"><a href="/profile/">view profile</a></li>
+                    </ul>
+                    <div style="position: relative; width: 100%;">
+                        <a href="/logout/" class="logout-button">Log out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="clearfix"></div>
+</section>
+
+  <!-- Welcome Hero -->
+  <section id="home" class="welcome-hero">
+    <div class="container">
+      <div class="welcome-hero-txt">
+        <h2 style="text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5)">best place to find and explore <br> that all you need</h2>
+        <p style="text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5); font-size: 22px; color: #fdfdfd; line-height: 1.6; text-align: center; font-family: Arial, sans-serif; font-weight: 600;">
+          "Find your ideal home, stylish PGs, comfortable hostels, and everything <br>you need—just one click away!"
+        </p>
+      </div>
+      <div class="search-container">
+        <div class="search-wrapper">
+          <form action="{% url 'search_results' %}" method="GET" class="flex items-center">
+            <i class="fa fa-map-marker search-icon"></i>
+            <input type="text" name="location" class="search-input" placeholder="Ex: london, newyork, rome">
+            <button type="submit" class="search-button">Search <i class="fa fa-search"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <br>
+  </section>
+
+  <!-- List Topics -->
+  <section id="list-topics" class="list-topics" style="text-align: center;">
+    <ul style="list-style: none; padding: 15px; display: flex; justify-content: center; gap: 20px;">
+      <li onclick="window.location.href='/hostels/'" style="cursor: pointer; padding: 20px; border: 1px solid #ddd; border-radius: 10px; transition: 0.3s; display: inline-block; width: 200px; text-align: center; background: #fff; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);">
+        <div>
+          <div class="single-list-topics-icon"><i class="fa fa-building fa-3x" style="color: #8B5CF6;"></i></div>
+          <h2 style="margin: 10px 0; font-size: 20px; color: #333;">Hostels</h2>
+          <p style="font-size: 24px; font-weight: bold; color: #555;">{{ hostel }}</p>
+        </div>
+      </li>
+      <li onclick="window.location.href='/pg/'" style="cursor: pointer; padding: 20px; border: 1px solid #ddd; border-radius: 10px; transition: 0.3s; display: inline-block; width: 200px; text-align: center; background: #fff; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);">
+        <div>
+          <div class="single-list-topics-icon"><i class="fa fa-home fa-3x" style="color: #8B5CF6;"></i></div>
+          <h2 style="margin: 10px 0; font-size: 20px; color: #333;">PG</h2>
+          <p style="font-size: 24px; font-weight: bold; color: #555;">{{ pg }}</p>
+        </div>
+      </li>
+      <li onclick="window.location.href='/rooms/'" style="cursor: pointer; padding: 20px; border: 1px solid #ddd; border-radius: 10px; transition: 0.3s; display: inline-block; width: 200px; text-align: center; background: #fff; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);">
+        <div>
+          <div class="single-list-topics-icon"><i class="fa fa-bed fa-3x" style="color: #8B5CF6;"></i></div>
+          <h2 style="margin: 10px 0; font-size: 20px; color: #333;">Rooms</h2>
+          <p style="font-size: 24px; font-weight: bold; color: #555;">{{ room }}</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- How It Works -->
+  <section id="works" class="works">
+    <div class="container">
+      <div class="section-header"><br><br><h2>how it works</h2><p>Learn More about how our website works</p></div>
+      <div class="works-content">
+        <div class="row">
+          <div class="col-md-4 col-sm-6">
+            <div class="single-how-works">
+              <div class="single-how-works-icon"><i class="flaticon-lightbulb-idea"></i></div>
+              <h2><a href="#"> <span>what to</span> do</a></h2>
+              <p>"Browse accommodations, filter by preferences, and connect with owners to find your ideal place. Compare options and make informed decisions for comfort."</p>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6">
+            <div class="single-how-works">
+              <div class="single-how-works-icon"><i class="flaticon-networking"></i></div>
+              <h2><a href="#">find <span>what we provide</span></a></h2>
+              <p>"We help students and workers find affordable rooms, PGs, and hostels based on location, budget, and preferences. Find your next home with ease!"</p>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-6">
+            <div class="single-how-works">
+              <div class="single-how-works-icon"><i class="flaticon-location-on-road"></i></div>
+              <h2><a href="#">explore <span>amazing</span> place</a></h2>
+              <p>Discover the top attractions and hidden gems in your chosen location. Explore vibrant spots, landmarks, and local favorites for a memorable experience!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section id="reviews" class="reviews">
+    <div class="container mx-auto text-center">
+      <div class="section-header">
+        <h2>Client Testimonials</h2>
+        <p>Hear What Our Clients Have to Say</p>
+        <a href="{% url 'add_reviews' %}" class="review-button">Add Review</a>
+      </div>
+      <div class="testimonial-carousel">
+        <div class="testimonial-inner">
+          {% if reviews %}
+            {% for review in reviews %}
+              <div class="single-testimonial-box">
+                <div class="testimonial-description">
+                  <div class="testimonial-info">
+                    {% if review.user.image %}
+                      <div class="testimonial-img">
+                        <img src="{{ review.user.image.url }}" alt="{{ review.user.name }}">
+                      </div>
+                    {% else %}
+                      <div class="testimonial-img">
+                        <img src="{% static 'images/clients/faceless.jpg' %}" alt="Default Client">
+                      </div>
+                    {% endif %}
+                    <div class="testimonial-person">
+                      <h2>{{ review.user.name }}</h2>
+                      <h4>{{ review.user.place|default:"Unknown Location" }}</h4>
+                      <div class="testimonial-person-star">
+                        {% for i in "12345"|make_list %}
+                          {% if forloop.counter <= review.rating %}
+                            <i class="fa fa-star"></i>
+                          {% else %}
+                            <i class="fa fa-star-o"></i>
+                          {% endif %}
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="testimonial-comment">
+                    <p>"{{ review.review_text }}"</p>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="single-testimonial-box" style="display: flex; justify-content: center; align-items: center; min-height: 200px; width: 100%;">
+              <div class="testimonial-comment" style="text-align: center; padding: 20px;">
+                <p style="font-size: 18px; font-weight: 500; color: #4a5568; line-height: 1.6; margin: 0;">
+                  Be the first to share your experience!<br>We’d love to hear your feedback.
+                </p>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Statistics -->
+  <section id="statistics" class="statistics">
+    <div class="container">
+      <div class="statistics-counter">
+        <div class="col-md-3 col-sm-6">
+          <div class="single-ststistics-box">
+            <div class="statistics-content">
+              <div class="counter">{{ total_listings }}</div>
+              {% if total_listings >= 1000 %}
+                <span>k+</span>
+              {% endif %}
+            </div>
+            <h3>listings</h3>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="single-ststistics-box">
+            <div class="statistics-content"><div class="counter">3</div><span></span></div>
+            <h3>listing categories</h3>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="single-ststistics-box">
+            <div class="statistics-content">
+              <div class="counter">{{ total_users }}</div>
+              {% if total_users >= 1000 %}
+                <span>k+</span>
+              {% endif %}
+            </div>
+            <h3>Users</h3>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="single-ststistics-box">
+            <div class="statistics-content">
+              <div class="counter">{{ total_reviews }}</div>
+              {% if total_reviews >= 1000 %}
+                <span>k+</span>
+              {% endif %}
+            </div>
+            <h3>Reviews</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Subscription -->
+  <section id="contact" class="subscription">
+    <div class="container">
+      <div class="subscribe-title text-center">
+        <h2>do you want to add your business listing with us?</h2>
+        <p>Listrace offer you to list your business with us and we very much able to promote your Business.</p>
+      </div>
+      <div class="row" style="display: flex; justify-content: center; margin-left: 165px">
+        <div class="subscription-input-group flex">
+          <form action="{% url 'register_product' %}" method="get">
+            <button type="submit" class="enter-button">Enter</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="footer" class="footer">
+    <div class="container">
+      <div class="footer-menu">
+        <div class="row">
+          <div class="col-sm-12">
+            <section id="refer-friend" class="text-center py-12 bg-purple-50"> <!-- Updated bg to violet shade -->
+              <div class="section-header">
+                <h2 class="text-purple-700 font-bold text-3xl">Refer a Friend</h2> <!-- Updated to violet shade -->
+                <p class="text-gray-600 mt-2">Invite your friends to join us!</p>
+                <a id="whatsapp-share" class="mt-6 inline-block" href="#">Refer a Friend</a>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <div class="hm-footer-copyright">
+        <div class="row">
+          <div class="col-sm-7">
+            <div class="footer-social">
+              <a href="www.facebook.com"><i class="fa fa-facebook"></i></a>
+              <a href="#"><i class="fa fa-twitter"></i></a>
+              <a href="#"><i class="fa fa-linkedin"></i></a>
+              <a href="#"><i class="fa fa-google-plus"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="scroll-Top">
+      <div class="return-to-top">
+        <i class="fa fa-angle-up" id="scroll-top" data-toggle="tooltip" data-placement="top" title="" data-original-title="Back to Top" aria-hidden="true"></i>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="{% static 'js/jquery.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/bootsnav.js' %}"></script>
+  <script src="{% static 'js/feather.min.js' %}"></script>
+  <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+  <script src="{% static 'js/waypoints.min.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+  <script src="{% static 'js/custom.js' %}"></script>
+  <script>
+    document.getElementById("whatsapp-share").addEventListener("click", function(e) {
+      e.preventDefault();
+      let referralLink = "https://yourwebsite.com/?ref=your_referral_code";
+      let message = "Hey! Check out this amazing platform. Join now using my referral link: " + referralLink;
+      let whatsappURL = "https://wa.me/?text=" + encodeURIComponent(message);
+      window.open(whatsappURL, "_blank");
+    });
+
+    // Smooth scrolling for review link
+    document.querySelectorAll('a[href="#reviews"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector('#reviews').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Custom carousel animation
+    const carousel = document.querySelector('.testimonial-inner');
+    if (carousel) {
+      const reviewCount = {{ reviews.count|default:1 }};
+      const reviewWidth = 300;
+      const margin = 20;
+      const totalWidth = reviewCount * (reviewWidth + margin);
+
+      carousel.style.animation = `scroll 20s linear infinite`;
+
+      carousel.addEventListener('animationiteration', () => {
+        carousel.style.transition = 'none';
+        carousel.style.transform = 'translateX(0)';
+        void carousel.offsetWidth;
+        carousel.style.transition = 'transform 20s linear';
+        carousel.style.transform = `translateX(-${totalWidth}px)`;
+      });
+
+      carousel.style.transform = 'translateX(0)';
+    }
+  </script>
+</body>
+</html>

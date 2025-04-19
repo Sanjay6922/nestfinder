@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nearby {{ place_type|title }}</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'img/NestFinder icon.png' %}" />
+
+</head>
+<body>
+    <h1>Nearby {{ place_type|title }} for {{ product.name }}</h1>
+    <ul>
+        {% for place in nearby_places %}
+            <li>{{ place.name }} - {{ place.distance }} km</li>
+        {% endfor %}
+    </ul>
+    <a href="javascript:void(0);" onclick="window.history.back();">Back</a>
+</body>
+</html>

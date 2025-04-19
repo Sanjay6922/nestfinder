@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{% static 'img/NestFinder icon.png' %}" />
+
+    <style>
+        /* Base styling for the body */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-image: url('https://www.shutterstock.com/image-vector/contact-us-customer-support-hotline-600nw-2402878041.jpg');
+            background-size: cover;
+            background-position: center;
+            background attachment: fixed;
+            background-blend-mode: overlay;
+            backdrop-filter: blur(2px);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Form container with increased transparency */
+        .form-container {
+            backdrop-filter: blur(12px); /* Slightly reduced blur for clarity */
+            background-color: rgba(255, 255, 255, 0.15); /* More transparent */
+            border-radius: 1.5rem;
+            border: 1px solid rgba(139, 92, 246, 0.2); /* Lighter violet border */
+            transition: all 0.3s ease;
+        }
+
+        .form-container:hover {
+            background-color: rgba(255, 255, 255, 0.25); /* Slightly less transparent on hover */
+            box-shadow: 0 10px 20px rgba(109, 40, 217, 0.15); /* Softer violet shadow */
+        }
+
+        /* Header text styling with improved contrast */
+        h1 {
+            color: #a86ad4; /* Dark violet */
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6), 0 0 4px rgba(139, 92, 246, 0.5); /* Stronger shadow with violet tint */
+            animation: fadeIn 1s ease-in-out;
+            font-weight: 700; /* Bolder for emphasis */
+        }
+
+        /* Label styling with enhanced readability */
+        label {
+            color: #59098f; /* Dark violet */
+            background-color: rgba(255, 255, 255, 0.6); /* Slightly more transparent */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4); /* Stronger shadow */
+            font-size: 0.875rem;
+            font-weight: 600;
+            padding: 0 0.5rem;
+            position: absolute;
+            top: -0.75rem;
+            left: 1rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-radius: 0.25rem;
+            transition: all 0.3s ease;
+        }
+
+        label:hover {
+            color: #6D28D9; /* Lighter violet on hover */
+            background-color: rgba(255, 255, 255, 0.75);
+        }
+
+        /* Input and textarea styling with more transparency */
+        input, textarea {
+            background-color: rgba(255, 255, 255, 0.2); /* More transparent */
+            color: #1F2937; /* Dark gray text */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Enhanced shadow for readability */
+            border: 2px solid rgba(139, 92, 246, 0.4); /* Lighter violet border */
+            transition: all 0.3s ease;
+            font-weight: 500; /* Slightly bolder text */
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #5A6069; /* Slightly darker gray for contrast */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        input:focus, textarea:focus {
+            background-color: rgba(255, 255, 255, 0.5); /* Less transparent on focus */
+            border-color: #6D28D9; /* Brighter violet */
+            box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.25); /* Stronger violet ring */
+            outline: none;
+        }
+
+        /* Button styling */
+        button {
+            background: linear-gradient(to right, #6D28D9, #8B5CF6); /* Violet gradient */
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); /* Added shadow for text */
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #7C3AED, #9F67FA); /* Lighter violet */
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(109, 40, 217, 0.3);
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-container {
+            animation: slideIn 0.8s ease-in-out;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            textarea {
+                height: 6rem;
+            }
+
+            button {
+                padding: 0.75rem 1.5rem;
+            }
+
+            label {
+                font-size: 0.75rem;
+                padding: 0 0.25rem;
+                top: -0.5rem;
+                left: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-xl rounded-2xl shadow-2xl overflow-hidden">
+        <div class="form-container p-8 space-y-6 border-t-4 border-violet-600">
+            <div class="text-center mb-6">
+                <h1 class="text-3xl font-bold flex items-center justify-center">
+                    <i class="fas fa-paper-plane mr-4"></i>
+                    Contact Admin
+                </h1>
+            </div>
+
+            <form method="post" action="{% url 'message' %}" class="space-y-6">
+                {% csrf_token %}
+                <div class="relative">
+                    <label for="name" class="absolute -top-3 left-4 px-2 text-sm font-semibold shadow-sm">Your Name</label>
+                    <input type="text" id="name" name="name" value="{{ user.name }}"
+                        class="w-full px-4 py-3 rounded-xl focus:outline-none transition duration-300"
+                        readonly>
+                </div>
+
+                <div class="relative">
+                    <label for="email" class="absolute -top-3 left-4 px-2 text-sm font-semibold shadow-sm">Your Email</label>
+                    <input type="email" id="email" name="email" value="{{ user.email }}"
+                        class="w-full px-4 py-3 rounded-xl focus:outline-none transition duration-300"
+                        readonly>
+                </div>
+
+                <div class="relative">
+                    <label for="subject" class="absolute -top-3 left-4 px-2 text-sm font-semibold shadow-sm">Subject</label>
+                    <input type="text" id="subject" name="subject"
+                        class="w-full px-4 py-3 rounded-xl focus:outline-none transition duration-300 placeholder-gray-400"
+                        required placeholder="What is this about?">
+                </div>
+
+                <div class="relative">
+                    <label for="message" class="absolute -top-3 left-4 px-2 text-sm font-semibold shadow-sm">Your Message</label>
+                    <textarea id="message" name="message" rows="5"
+                        class="w-full px-4 py-3 rounded-xl focus:outline-none transition duration-300 placeholder-gray-400"
+                        required placeholder="Type your detailed message here..."></textarea>
+                </div>
+
+                <div class="text-center pt-4">
+                    <button type="submit"
+                        class="w-full text-white px-8 py-3 rounded-xl transition duration-300 ease-in-out shadow-lg focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-opacity-50">
+                        <i class="fas fa-envelope mr-2"></i>
+                        Send Message
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
