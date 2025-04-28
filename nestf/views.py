@@ -101,7 +101,7 @@ def userhome(request):
         'total_users': total_users,      # Total users count
         'total_listings': total_listings,  # Total listings count
     }
-    return render(request, 'userhome.html', context)
+    return render(request, 'userhome2.html', context)
   
 
 
@@ -1227,3 +1227,5 @@ def delete_review(request, review_id):
     if request.method == 'POST':
         review.delete()
     return redirect('show_reviews')  # Redirect to the review list
+def userhome2(request):
+    return render(request,'userhome2.html')

@@ -68,6 +68,33 @@
         .tab-content.active {
             display: block;
         }
+        @media (max-width: 640px) {
+        body {
+            padding: 1rem; /* much smaller padding on mobile */
+        }
+        }
+        @media (max-width: 640px) {
+        h1 {
+            font-size: 1.5rem; /* smaller heading */
+        }
+        .profile-container {
+            border-width: 2px; /* thinner border */
+            padding: 1rem; /* smaller padding inside container */
+        }
+        .tab-btn {
+            padding: 0.5rem 1rem; /* smaller tab buttons */
+            font-size: 0.9rem;
+        }
+        .swiper-slide img {
+            height: 10rem; /* reduce image height */
+        }
+        .flex.flex-wrap.gap-3 a {
+            padding: 0.5rem 1rem; /* smaller buttons */
+            font-size: 0.875rem;
+        }
+        }
+
+
     </style>
 </head>
 <body class="min-h-screen">

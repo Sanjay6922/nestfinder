@@ -1,0 +1,434 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NestFinder</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS for Animations -->
+    <link rel="icon" type="image/x-icon" href="{% static 'img/NestFinder icon.png' %}" />
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .animate-fadeIn { animation: fadeIn 1s ease-in-out; }
+        .animate-slideInLeft { animation: slideInLeft 1s ease-in-out; }
+        .animate-slideInRight { animation: slideInRight 1s ease-in-out; }
+
+        .welcome-hero {
+            background: url("{% static 'images/welcome-hero/banner.jpg' %}") no-repeat center center/cover;
+        }
+
+        .testimonial-carousel {
+            scroll-snap-type: x mandatory;
+            overflow-x: auto;
+            display: flex;
+            gap: 20px;
+            padding-bottom: 20px;
+        }
+
+        .single-testimonial-box {
+            scroll-snap-align: start;
+            flex: 0 0 auto;
+            width: 300px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        /* Statistics Styling */
+        .statistics {
+            background: #727272; /* Grey background */
+            padding: 40px 0;
+        }
+        .single-ststistics-box {
+            text-align: center;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        .single-ststistics-box:hover {
+            transform: translateY(-5px);
+        }
+        .statistics-content {
+            font-size: 2.5rem;
+            color: #ffffff; /* White font for counters */
+            font-weight: bold;
+        }
+        .counter { display: inline; }
+        .statistics h3 {
+            font-size: 1.2rem;
+            color: #ffffff; /* White font for h3 */
+            margin-top: 10px;
+        }
+
+        /* How It Works Box Styling */
+        .how-it-works-box {
+            min-height: 300px; /* Reduced height since button is removed */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            padding: 20px; /* Uniform padding */
+            background: #fff;
+            border-radius: 0.5rem; /* Tailwind's rounded-lg */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Tailwind's shadow-md */
+        }
+        .how-it-works-box i {
+            font-size: 2.5rem; /* Consistent icon size */
+            margin-bottom: 16px; /* Tailwind's mb-4 */
+        }
+        .how-it-works-box h2 {
+            font-size: 1.5rem; /* Tailwind's text-2xl */
+            font-weight: bold;
+            margin-bottom: 8px; /* Tailwind's mb-2 */
+            height: 48px; /* Fixed height for title consistency */
+            overflow: hidden;
+        }
+        .how-it-works-box p {
+            font-size: 1rem; /* Tailwind's default text */
+            color: #4b5563; /* Tailwind's text-gray-600 */
+            flex-grow: 1; /* Allows text to expand within flex container */
+            margin-bottom: 16px; /* Tailwind's mb-4 */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 4; /* Increased to 4 lines for more content space */
+            -webkit-box-orient: vertical;
+
+        }
+
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto flex justify-between items-center py-4 px-6 h-20">
+            <a href="/" class="font-dancing font-bold text-gray-800 flex items-center  ml-6">
+                <img src="{% static 'img/logo5.png' %}" class="w-20 md:w-32 h-12 md:h-16 object-contain" alt="NestFinder Logo">
+            </a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="/" class="text-gray-700 hover:text-purple-600">Home</a>
+                <a href="#works" class="text-gray-700 hover:text-purple-600">How It Works</a>
+                <a href="/user_messages/" class="text-gray-700 hover:text-purple-600">Messages</a>
+                <a href="#reviews" class="text-gray-700 hover:text-purple-600">Reviews</a>
+                <a href="/messages/" class="text-gray-700 hover:text-purple-600">Contact</a>
+                <a href="/profile/" class="text-gray-700 hover:text-purple-600">view Profile</a>
+                <a href="/logout/" class="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700">logout</a>
+            </nav>
+            <button class="md:hidden text-gray-700 focus:outline-none" id="menu-btn">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        <div class="md:hidden hidden flex-col space-y-6 px-12 pb-6" id="mobile-menu">
+            <a href="#home" class="text-gray-700 hover:text-purple-600">Home</a><br>
+            <a href="#works" class="text-gray-700 hover:text-purple-600">How It Works</a><br>
+            <a href="/user_messages/" class="text-gray-700 hover:text-purple-600">Messages</a><br>
+            <a href="#reviews" class="text-gray-700 hover:text-purple-600">Reviews</a><br>
+            <a href="/messages/" class="text-gray-700 hover:text-purple-600">Contact</a><br>
+            <a href="/profile/" class="text-gray-700 hover:text-purple-600">View Profile</a><br>
+            <a href="/logout/" class="text-gray-700 hover:text-purple-600">Logout</a><br><br>
+           
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="welcome-hero h-screen flex flex-col items-center justify-center text-center text-white relative px-4">
+        <div class="animate-fadeIn mb-10">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white drop-shadow-[2px_2px_8px_rgba(0,0,0,0.9)]">
+              Best Place to Find and Explore <br> All You Need
+            </h2>
+            <p class="text-lg md:text-xl text-white drop-shadow-[2px_2px_6px_rgba(0,0,0,0.8)]">
+              "Find your ideal home, stylish PGs, comfortable hostels, and everything <br> you need—just one click away!"
+            </p>
+          </div>
+          
+      
+        <!-- Search Container -->
+        <div class="w-full max-w-4xl">
+          <form action="{% url 'search_results' %}" method="GET" class="flex flex-col md:flex-row items-center gap-4">
+            
+            <div class="relative w-full">
+              <i class="fa fa-map-marker absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg"></i>
+              <input 
+                type="text" 
+                name="location" 
+                placeholder="Ex: London, New York, Rome" 
+                class="w-full py-4 pl-12 pr-4 rounded-lg text-gray-700 text-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:outline-none" 
+              >
+            </div>
+      
+            <button 
+              type="submit" 
+              class="w-full md:w-auto px-6 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg flex items-center justify-center transition"
+            >
+              Search
+              <i class="fa fa-search ml-2"></i>
+            </button>
+      
+          </form>
+        </div>
+      </section>
+      
+
+    <!-- List Topics -->
+    <section id="list-topics" class="list-topics" style="text-align: center;">
+        <ul style="list-style: none; padding: 15px; display: flex; justify-content: center; gap: 20px;">
+            <li onclick="window.location.href='/hostels/'" style="cursor: pointer; padding: 20px; border: 1px solid #ddd; border-radius: 10px; transition: 0.3s; display: inline-block; width: 200px; text-align: center; background: #fff; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);">
+                <div>
+                    <div class="single-list-topics-icon"><i class="fa fa-building fa-3x" style="color: #8B5CF6;"></i></div>
+                    <h2 style="margin: 10px 0; font-size: 20px; color: #333;">Hostels</h2>
+                    <p style="font-size: 24px; font-weight: bold; color: #555;">{{ hostel }}</p>
+                </div>
+            </li>
+            <li onclick="window.location.href='/pg/'" style="cursor: pointer; padding: 20px; border: 1px solid #ddd; border-radius: 10px; transition: 0.3s; display: inline-block; width: 200px; text-align: center; background: #fff; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);">
+                <div>
+                    <div class="single-list-topics-icon"><i class="fa fa-home fa-3x" style="color: #8B5CF6;"></i></div>
+                    <h2 style="margin: 10px 0; font-size: 20px; color: #333;">PG</h2>
+                    <p style="font-size: 24px; font-weight: bold; color: #555;">{{ pg }}</p>
+                </div>
+            </li>
+            <li onclick="window.location.href='/rooms/'" style="cursor: pointer; padding: 20px; border: 1px solid #ddd; border-radius: 10px; transition: 0.3s; display: inline-block; width: 200px; text-align: center; background: #fff; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);">
+                <div>
+                    <div class="single-list-topics-icon"><i class="fa fa-bed fa-3x" style="color: #8B5CF6;"></i></div>
+                    <h2 style="margin: 10px 0; font-size: 20px; color: #333;">Rooms</h2>
+                    <p style="font-size: 24px; font-weight: bold; color: #555;">{{ room }}</p>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="works" class="py-16 bg-gray-100">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-4">How It Works</h2>
+            <p class="text-gray-600 mb-8">Learn More about how our website works</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="animate-slideInLeft">
+                    <div class="how-it-works-box">
+                        <i class="fas fa-lightbulb text-purple-600"></i>
+                        <h2>What to Do</h2>
+                        <p>"Browse accommodations, filter by preferences, and connect with owners to find your ideal place."</p>
+                    </div>
+                </div>
+                <div class="animate-fadeIn">
+                    <div class="how-it-works-box">
+                        <i class="fas fa-network-wired text-purple-600"></i>
+                        <h2>Find What We Provide</h2>
+                        <p>"We help students and workers find affordable rooms, PGs, and hostels based on location and budget."</p>
+                    </div>
+                </div>
+                <div class="animate-slideInRight">
+                    <div class="how-it-works-box">
+                        <i class="fas fa-map-marked-alt text-purple-600"></i>
+                        <h2>Explore Amazing Places</h2>
+                        <p>"Discover top attractions and hidden gems in your chosen location."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-16 bg-white">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-4">Client Reviews</h2>
+            <p class="text-gray-600 mb-8">What our clients say about us</p>
+            <div class="testimonial-carousel overflow-hidden relative">
+                <div class="flex space-x-8 animate-scroll">
+                    {% if reviews %}
+                        {% for review in reviews %}
+                            <div class="single-testimonial-box p-6 bg-gray-100 rounded-lg shadow-md hover:scale-105 transition-transform duration-300 flex-shrink-0 w-80">
+                                <div class="testimonial-description">
+                                    <div class="testimonial-info">
+                                        {% if review.user.image %}
+                                            <img src="{{ review.user.image.url }}" alt="{{ review.user.name }}" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+                                        {% else %}
+                                            <img src="{% static 'images/clients/default.jpg' %}" alt="Default client" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+                                        {% endif %}
+                                        <h2 class="text-xl font-bold">{{ review.user.name }}</h2>
+                                        <h4 class="text-gray-600">{{ review.user.place }}</h4>
+                                        <div class="text-yellow-400">
+                                            {% for i in "12345" %}
+                                                {% if forloop.counter <= review.rating %}
+                                                    <i class="fa fa-star"></i>
+                                                {% else %}
+                                                    <i class="fa fa-star-o"></i>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="testimonial-comment mt-4">
+                                        <p class="text-gray-600">"{{ review.review_text }}"</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-gray-600">No reviews yet!</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section id="statistics" class="statistics">
+        <div class="container mx-auto">
+            <div class="statistics-counter grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="single-ststistics-box">
+                    <div class="statistics-content">
+                        <div class="counter">{{ total_listings }}</div>
+                        {% if total_listings >= 1000 %}<span>k+</span>{% endif %}
+                    </div>
+                    <h3>listings</h3>
+                </div>
+                <div class="single-ststistics-box">
+                    <div class="statistics-content"><div class="counter">3</div><span></span></div>
+                    <h3>listing categories</h3>
+                </div>
+                <div class="single-ststistics-box">
+                    <div class="statistics-content">
+                        <div class="counter">{{ total_users }}</div>
+                        {% if total_users >= 1000 %}<span>k+</span>{% endif %}
+                    </div>
+                    <h3>Users</h3>
+                </div>
+                <div class="single-ststistics-box">
+                    <div class="statistics-content">
+                        <div class="counter">{{ total_reviews }}</div>
+                        {% if total_reviews >= 1000 %}<span>k+</span>{% endif %}
+                    </div>
+                    <h3>Reviews</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom CSS for Automatic Scrolling -->
+    <style>
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-scroll {
+            display: flex;
+            animation: scroll 20s linear infinite;
+        }
+        .testimonial-carousel:hover .animate-scroll {
+            animation-play-state: paused;
+        }
+    </style>
+    <!-- Contact / Subscription Section -->
+<section id="contact" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+          Do you want to add your business listing with us?
+        </h2>
+        <p class="text-gray-600 text-lg">
+          Listrace offers you the opportunity to list your business with us, and we can effectively promote your business.
+        </p>
+      </div>
+      
+      <div class="flex justify-center">
+        <form action="{% url 'register_product' %}" method="get" class="flex">
+          <button 
+            type="submit" 
+            class="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-8 py-3 rounded-lg transition duration-300"
+          >
+            Enter
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Refer a Friend Section -->
+  <section id="refer-friend" class="text-center py-16 bg-purple-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-purple-700 mb-4">
+        Refer a Friend
+      </h2>
+      <p class="text-gray-600 text-lg mb-8">
+        Invite your friends to join us!
+      </p>
+      <a 
+        id="whatsapp-share" 
+        href="#" 
+        class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-3 rounded-lg transition duration-300"
+      >
+        Refer a Friend
+      </a>
+    </div>
+  </section>  
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto text-center">
+            
+            <p>© 2023 NestFinder. All rights reserved.</p>
+            <div class="mt-4 space-x-4">
+                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-google-plus"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Libraries for Counting Animation -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
+
+    <!-- JavaScript for Smooth Scroll and Counting Animation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Smooth Scroll for Reviews Link
+            const reviewsLink = document.getElementById('reviews-link');
+            if (reviewsLink) {
+                reviewsLink.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const reviewsSection = document.getElementById('reviews');
+                    reviewsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            }
+
+            // Counting Animation on Scroll
+            $(document).ready(function() {
+                $('.statistics').waypoint(function() {
+                    $('.counter').counterUp({
+                        delay: 10,    // Delay between increments (in milliseconds)
+                        time: 1000    // Total duration of the animation (in milliseconds)
+                    });
+                }, {
+                    offset: '80%'  // Trigger when 80% of the section is in view
+                });
+            });
+        });
+    </script>
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+    
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+    
+</body>
+</html>

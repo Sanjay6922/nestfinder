@@ -48,6 +48,7 @@ urlpatterns = [
     path('toggle_pg_wishlist/', views.toggle_pg_wishlist, name='toggle_pg_wishlist'),
     path('review/', views.show_reviews, name='show_reviews'),
     path('reviews/delete/<int:review_id>/', views.delete_review, name='delete_review'),
+    path('ind/',views.userhome2,name='gg')
     
     
     
