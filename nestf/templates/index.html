@@ -131,9 +131,19 @@
                 <a href="/reg_form/" class="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700">Register</a>
                 <a href="/login/" class="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700">Sign In</a>
             </nav>
-            <button class="md:hidden text-gray-700 focus:outline-none">
+            <button class="md:hidden text-gray-700 focus:outline-none" id="menu-btn">
                 <i class="fas fa-bars text-2xl"></i>
             </button>
+        </div>
+        <div class="md:hidden hidden flex-col space-y-6 px-12 pb-6" id="mobile-menu">
+            <a href="/" class="text-gray-700 hover:text-purple-600">Home</a><br>
+            <a href="#works" class="text-gray-700 hover:text-purple-600">How It Works</a><br>
+            <a href="/reg_form/" class="text-gray-700 hover:text-purple-600">Explore</a><br>
+            <a href="#reviews" class="text-gray-700 hover:text-purple-600">Reviews</a><br>
+            <a href="/reg_form/" class="text-gray-700 hover:text-purple-600">Blog</a><br>
+            <a href="/reg_form/" class="text-gray-700 hover:text-purple-600">Contact</a><br><br>
+            <a href="/reg_form/" class="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700">Register</a><br><br>
+            <a href="/login/" class="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700">Sign In</a>
         </div>
     </header>
 
@@ -340,5 +350,14 @@
             });
         });
     </script>
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+    
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+    
 </body>
 </html>
