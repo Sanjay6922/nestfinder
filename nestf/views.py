@@ -954,7 +954,7 @@ def pg_list_view(request):
         } for pg in pg_list]
         return JsonResponse({'pgs': pg_data})
 
-    return render(request, 'pg.html', {'pg_list': pg_list, 'wishlist': wishlist})
+    return render(request, 'PG.html', {'pg_list': pg_list, 'wishlist': wishlist})
 
 
 from django.http import JsonResponse
