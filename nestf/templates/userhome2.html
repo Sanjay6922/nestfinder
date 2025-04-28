@@ -11,6 +11,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <!-- Custom CSS for Animations -->
     <link rel="icon" type="image/x-icon" href="{% static 'img/NestFinder icon.png' %}" />
+    <meta property="og:title" content="NestFinder - Find your perfect place" />
+    <meta property="og:description" content="Discover the best PGs, Hostels, and Rooms easily with NestFinder." />
+    <meta property="og:image" content="https://nest-finder-ydpq.onrender.com/static/img/NestFinder_icon.png" />
+    <meta property="og:url" content="https://nest-finder-ydpq.onrender.com/" />
+    <meta property="og:type" content="website" />
     <style>
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); }
@@ -429,6 +434,19 @@
             mobileMenu.classList.toggle('hidden');
         });
     </script>
-    
+   <script>
+    document.getElementById("whatsapp-share").addEventListener("click", function(e) {
+        e.preventDefault();
+        
+        let referralLink = "https://nest-finder-ydpq.onrender.com/?ref=your_referral_code";
+        let message = "\n\nHey! Check out this amazing platform. Join now using my referral link!";
+        
+        let fullMessage = referralLink + message;
+        let whatsappURL = "https://wa.me/?text=" + encodeURIComponent(fullMessage);
+        
+        window.open(whatsappURL, "_blank");
+    });
+</script>
+
 </body>
 </html>
